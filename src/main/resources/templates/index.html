@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Simple Wildberries Parser</title>
+    </head>
+    <body>
+        <div align="center">
+            <table width="50%" border="1" align="center">
+              <tr>
+                <th>Ссылка</th>
+                <th>Цена</th>
+                <th>Картинка</th>
+                <th>Размер</th>
+              </tr>
+              <tr th:each="item : ${items}" align="center">
+                    <td><a href="" th:href="${item.url}"><span th:text="${item.goodCode}"></span></a></td>
+                    <td><span th:text="${item.price}"></span> <br>
+                        <span th:text="${item.discountPrice} ?: ''"></span></td>
+                    <td><img th:attr="src=${item.img}"></td>
+                    <td>
+                        <table>
+                            <tr th:each="size : ${item.sizeTable}">
+                                 <td th:text="${size.key}"></td>
+                                 <td><a href="" th:href="${item.url}"><span th:text="${size.value}"></span></a></td>
+                            </tr>
+                         </table>
+
+                    </td>
+              </tr>
+            </table>
+            <br><br>
+            <form action="/newItem" method="post">
+                <input type="text" name="url">
+                <input type="submit" value="Добавить">
+             </form>
+        </div>
+    </body>
+</html>
