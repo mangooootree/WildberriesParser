@@ -1,15 +1,45 @@
 package osipov.wildberriesparser.domain;
 
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
 import java.util.Map;
 import java.util.Objects;
 
+@Entity
+@Proxy(lazy=false)
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String url;
     private String price;
+
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<String, Boolean> sizeTable;
     private String img;
     private String goodCode;
     private String discountPrice;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getDiscountPrice() {
         return discountPrice;
@@ -57,6 +87,9 @@ public class Item {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public Item() {
     }
 
     @Override

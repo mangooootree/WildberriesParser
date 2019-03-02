@@ -29,7 +29,7 @@ public class WildberriesPageChecker {
             }
 
             String goodCode = page.select("#GoodCode").first().text();
-            String img = page.select("img[src$="+ goodCode+"-1.jpg]").first().attr("src");
+            String img = page.select("img[src$=" + goodCode + "-1.jpg]").first().attr("src");
             String price = page.select("ins").text();
             Elements discount = page.select(".add-discount-text-price");
 
@@ -40,7 +40,7 @@ public class WildberriesPageChecker {
             item.setImg(img);
             item.setPrice(price);
 
-            if (discount.size()>0){
+            if (discount.size() > 0) {
                 item.setDiscountPrice(discount.first().text());
             }
 

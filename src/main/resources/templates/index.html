@@ -20,7 +20,16 @@
                         <table>
                             <tr th:each="size : ${item.sizeTable}">
                                  <td th:text="${size.key}"></td>
-                                 <td><a href="" th:href="${item.url}"><span th:text="${size.value}"></span></a></td>
+
+                                 <td>
+                                     <div th:if="!${size.value}">
+                                        <a href="" th:href="@{/details(id=${item.id}, size=${size.key})}"><span>отслеживать</span></a>
+                                     </div>
+
+                                     <div th:if="${size.value}">
+                                        <span>в наличии</span>
+                                     </div>
+                                 </td>
                             </tr>
                          </table>
 
@@ -29,9 +38,25 @@
             </table>
             <br><br>
             <form action="/newItem" method="post">
-                <input type="text" name="url">
+                <input type="text" name="url" width="40%">
                 <input type="submit" value="Добавить">
+                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
              </form>
+             <h3>Список отслеживаемых позиций:</h3>
+             <table border="1">
+                <tr>
+                    <th>GoodCode</th>
+                    <th>Img</th>
+                    <th>Size</th>
+                    <th></th>
+                </tr>
+                <tr th:each="instance : ${itemSizeInstances}" align="center">
+                    <td><span th:text="${instance.item.goodCode}"></span> <br></td>
+                    <td><img th:attr="src=${instance.item.img}"></td>
+                    <td><span th:text="${instance.size}"></span> <br></td>
+                    <td><a href="" th:href="@{/details(id=${instance.id}, size=${instance.size})}"><span>Перестать отслеживать</span></a></td>
+                </tr>
+             </table>
         </div>
     </body>
 </html>
