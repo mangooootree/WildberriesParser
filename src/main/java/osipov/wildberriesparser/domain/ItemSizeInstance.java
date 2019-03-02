@@ -1,6 +1,7 @@
 package osipov.wildberriesparser.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class ItemSizeInstance {
@@ -38,5 +39,19 @@ public class ItemSizeInstance {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemSizeInstance)) return false;
+        ItemSizeInstance that = (ItemSizeInstance) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }

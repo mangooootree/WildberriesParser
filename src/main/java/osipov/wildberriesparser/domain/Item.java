@@ -97,17 +97,12 @@ public class Item {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return Objects.equals(url, item.url) &&
-                Objects.equals(price, item.price) &&
-                Objects.equals(sizeTable, item.sizeTable) &&
-                Objects.equals(img, item.img) &&
-                Objects.equals(goodCode, item.goodCode) &&
-                Objects.equals(discountPrice, item.discountPrice);
+        return id == item.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(url, price, sizeTable, img, goodCode, discountPrice);
+        return Objects.hash(id);
     }
 }

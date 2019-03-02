@@ -10,6 +10,7 @@ import osipov.wildberriesparser.WildberriesPageChecker;
 import osipov.wildberriesparser.domain.Item;
 import osipov.wildberriesparser.domain.User;
 import osipov.wildberriesparser.repos.ItemRepo;
+import osipov.wildberriesparser.repos.ItemSizeInstanceRepo;
 import osipov.wildberriesparser.repos.UserRepo;
 
 import java.util.HashSet;
@@ -30,9 +31,13 @@ public class MainController {
     @Autowired
     private WildberriesPageChecker pageChecker;
 
+    @Autowired
+    private ItemSizeInstanceRepo itemSizeRepo;
+
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("items", items);
+        model.addAttribute("itemSizeInstances", itemSizeRepo.findAll());
         return "index";
     }
 
