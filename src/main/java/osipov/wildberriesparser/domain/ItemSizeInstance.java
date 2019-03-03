@@ -14,7 +14,17 @@ public class ItemSizeInstance {
 
     private String size;
 
+    private boolean presence;
+
     public ItemSizeInstance() {
+    }
+
+    public Boolean getPresence() {
+        return presence;
+    }
+
+    public void setPresence(Boolean presence) {
+        presence = presence;
     }
 
     public Item getItem() {
@@ -51,7 +61,16 @@ public class ItemSizeInstance {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
+    }
+
+    public boolean checkSize() {
+        if (this.item.getSizeTable().get(this.size)) {
+            this.presence = true;
+            return true;
+        } else {
+            this.presence = false;
+            return false;
+        }
     }
 }

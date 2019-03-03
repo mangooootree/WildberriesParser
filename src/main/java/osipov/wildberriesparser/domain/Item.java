@@ -1,13 +1,10 @@
 package osipov.wildberriesparser.domain;
 
-import org.hibernate.annotations.Proxy;
-
 import javax.persistence.*;
 import java.util.Map;
 import java.util.Objects;
 
 @Entity
-@Proxy(lazy=false)
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

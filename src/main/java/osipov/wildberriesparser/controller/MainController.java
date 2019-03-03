@@ -22,17 +22,18 @@ public class MainController {
 
     private Set<Item> items = new HashSet<>();
 
-    @Autowired
     private ItemRepo itemRepo;
-
-    @Autowired
     private UserRepo userRepo;
-
-    @Autowired
     private WildberriesPageChecker pageChecker;
+    private ItemSizeInstanceRepo itemSizeRepo;
 
     @Autowired
-    private ItemSizeInstanceRepo itemSizeRepo;
+    public MainController(ItemRepo itemRepo, UserRepo userRepo, WildberriesPageChecker pageChecker, ItemSizeInstanceRepo itemSizeRepo) {
+        this.itemRepo = itemRepo;
+        this.userRepo = userRepo;
+        this.pageChecker = pageChecker;
+        this.itemSizeRepo = itemSizeRepo;
+    }
 
     @GetMapping("/")
     public String home(Model model) {

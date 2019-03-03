@@ -4,15 +4,23 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import osipov.wildberriesparser.domain.Item;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Service
+@Component
 public class WildberriesPageChecker {
+
+    private SizeChecker sizeChecker;
+
+    public WildberriesPageChecker(SizeChecker sizeChecker) {
+        this.sizeChecker = sizeChecker;
+        Thread thread = new Thread(sizeChecker);
+        thread.start();
+    }
 
     public Item checkPage(String url) {
         Map<String, Boolean> sizeTable = new LinkedHashMap<>();
@@ -50,11 +58,3 @@ public class WildberriesPageChecker {
         return item;
     }
 }
-
-//            for (int i = 0; i < size.length; i++) {
-//                if (sizeTable.get(size[i]) && i <= sizeTable.size()) {
-//                    System.out.println("Размер " + size[i] + " в наличии!");
-//                } else {
-//                    System.out.println("Размер " + size[i] + " отсутствует!");
-//                }
-//            }

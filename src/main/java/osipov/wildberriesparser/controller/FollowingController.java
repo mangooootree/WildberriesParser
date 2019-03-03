@@ -13,18 +13,22 @@ import osipov.wildberriesparser.repos.ItemSizeInstanceRepo;
 @Controller
 public class FollowingController {
 
-    @Autowired
     private ItemRepo itemRepo;
+    private ItemSizeInstanceRepo itemSizeRepo;
 
     @Autowired
-    private ItemSizeInstanceRepo itemSizeRepo;
-    
+    public FollowingController(ItemRepo itemRepo, ItemSizeInstanceRepo itemSizeRepo) {
+        this.itemRepo = itemRepo;
+        this.itemSizeRepo = itemSizeRepo;
+    }
+
     @GetMapping("details")
     public String newItem(@RequestParam String id, @RequestParam String size, Model model) {
         Item item = itemRepo.getOne(Long.parseLong(id));
         ItemSizeInstance itemSizeInstance = new ItemSizeInstance();
         itemSizeInstance.setItem(item);
         itemSizeInstance.setSize(size);
+        itemSizeInstance.setPresence(false);
         itemSizeRepo.save(itemSizeInstance);
 
         return "redirect:/";

@@ -45,15 +45,17 @@
              <h3>Список отслеживаемых позиций:</h3>
              <table border="1">
                 <tr>
-                    <th>GoodCode</th>
-                    <th>Img</th>
-                    <th>Size</th>
+                    <th>Код товара</th>
+                    <th>Фото</th>
+                    <th>Размер</th>
+                    <th>Наличие</th>
                     <th></th>
                 </tr>
                 <tr th:each="instance : ${itemSizeInstances}" align="center">
-                    <td><span th:text="${instance.item.goodCode}"></span> <br></td>
+                    <td><span th:text="${instance.item.goodCode}"></span></td>
                     <td><img th:attr="src=${instance.item.img}"></td>
-                    <td><span th:text="${instance.size}"></span> <br></td>
+                    <td><span th:text="${instance.size}"></span></td>
+                    <td><span th:text="${instance.presence}"></span></td>
                     <td><a href="" th:href="@{/details(id=${instance.id}, size=${instance.size})}"><span>Перестать отслеживать</span></a></td>
                 </tr>
              </table>
