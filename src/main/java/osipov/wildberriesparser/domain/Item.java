@@ -1,6 +1,7 @@
 package osipov.wildberriesparser.domain;
 
 import javax.persistence.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class Item {
     private String price;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private Map<String, Boolean> sizeTable;
+    private Map<String, Boolean> sizeTable = new LinkedHashMap<>();
     private String img;
     private String goodCode;
     private String discountPrice;
@@ -94,12 +95,12 @@ public class Item {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return id == item.id;
+        return Objects.equals(goodCode, item.goodCode);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id);
+        return Objects.hash(goodCode);
     }
 }

@@ -14,14 +14,6 @@ import java.util.Map;
 @Component
 public class WildberriesPageChecker {
 
-    private SizeChecker sizeChecker;
-
-    public WildberriesPageChecker(SizeChecker sizeChecker) {
-        this.sizeChecker = sizeChecker;
-        Thread thread = new Thread(sizeChecker);
-        thread.start();
-    }
-
     public Item checkPage(String url) {
         Map<String, Boolean> sizeTable = new LinkedHashMap<>();
         Document page = null;
@@ -56,5 +48,23 @@ public class WildberriesPageChecker {
             e.printStackTrace();
         }
         return item;
+    }
+
+    public void updateSizeTable(Item item) {
+        Map<String, Boolean> sizeTable = new LinkedHashMap<>();
+        Document page = null;
+        try {
+            page = Jsoup.connect(item.getUrl()).get();
+            Elements elements = page.select("[^data-characteristic]");
+            for (Element label : elements) {
+                boolean isPresent = !label.className().equals("j-size  disabled j-sold-out");
+                String spanText = label.select("span").first().text();
+
+                sizeTable.put(spanText, isPresent);
+            }
+            item.setSizeTable(sizeTable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

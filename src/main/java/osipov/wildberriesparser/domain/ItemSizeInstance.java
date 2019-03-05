@@ -19,12 +19,12 @@ public class ItemSizeInstance {
     public ItemSizeInstance() {
     }
 
-    public Boolean getPresence() {
+    public boolean isPresence() {
         return presence;
     }
 
-    public void setPresence(Boolean presence) {
-        presence = presence;
+    public void setPresence(boolean presence) {
+        this.presence = presence;
     }
 
     public Item getItem() {
@@ -56,21 +56,13 @@ public class ItemSizeInstance {
         if (this == o) return true;
         if (!(o instanceof ItemSizeInstance)) return false;
         ItemSizeInstance that = (ItemSizeInstance) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(item, that.item) &&
+                Objects.equals(size, that.size);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
-    }
 
-    public boolean checkSize() {
-        if (this.item.getSizeTable().get(this.size)) {
-            this.presence = true;
-            return true;
-        } else {
-            this.presence = false;
-            return false;
-        }
+        return Objects.hash(item, size);
     }
 }
